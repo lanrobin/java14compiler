@@ -127,5 +127,8 @@ module jdk.compiler.lan {
 
     provides javax.tools.Tool with
         com.lan.tools.javac.api.JavacTool;*/
+    uses javax.annotation.processing.Processor;
+    uses com.lan.source.util.Plugin;
+    uses com.lan.tools.javac.platform.PlatformProvider;
 }
 
