@@ -37,9 +37,7 @@ public class ClassLoaders {
         // -Xbootclasspath/a or -javaagent with Boot-Class-Path attribute
         String append = VM.getSavedProperty("jdk.boot.class.path.append");
         BOOT_LOADER =
-                new BootClassLoader((append != null && !append.isEmpty())
-                        ? new URLClassPath(append, true)
-                        : null);
+                new BootClassLoader(append, true);
         PLATFORM_LOADER = new PlatformClassLoader(BOOT_LOADER);
 
         // A class path is required when no initial module is specified.
@@ -52,8 +50,8 @@ public class ClassLoaders {
             String initialModuleName = System.getProperty("jdk.module.main");
             cp = (initialModuleName == null) ? "" : null;
         }
-        URLClassPath ucp = new URLClassPath(cp, false);
-        APP_LOADER = new AppClassLoader(PLATFORM_LOADER, ucp);
+        //URLClassPath ucp = new URLClassPath(cp, false);
+        APP_LOADER = new AppClassLoader(PLATFORM_LOADER, cp, false);
     }
 
     /**
@@ -87,8 +85,8 @@ public class ClassLoaders {
      * the boot class loader. It is not used for class loading.
      */
     private static class BootClassLoader extends BuiltinClassLoader {
-        BootClassLoader(URLClassPath bcp) {
-            super(null, null, bcp);
+        BootClassLoader(String path, boolean skipEmptyElements) {
+            super(null, null, path, skipEmptyElements);
         }
 
         @Override
@@ -109,7 +107,7 @@ public class ClassLoaders {
         }
 
         PlatformClassLoader(BootClassLoader parent) {
-            super("platform", parent, null);
+            super("platform", parent, null, true);
         }
 
         /**
@@ -135,9 +133,9 @@ public class ClassLoaders {
 
         final URLClassPath ucp;
 
-        AppClassLoader(PlatformClassLoader parent, URLClassPath ucp) {
-            super("app", parent, ucp);
-            this.ucp = ucp;
+        AppClassLoader(PlatformClassLoader parent, String path, boolean skipEmptyElements) {
+            super("app", parent, path, skipEmptyElements);
+            this.ucp = new URLClassPath(path, false);
         }
 
         @Override

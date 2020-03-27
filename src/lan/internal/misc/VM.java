@@ -223,7 +223,7 @@ public class VM {
     //
     public static void initializeOSEnvironment() {
         if (initLevel() == 0) {
-            OSEnvironment.initialize();
+            OSEnvironmentUtil.initialize();
         }
     }
 
