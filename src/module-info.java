@@ -45,9 +45,9 @@
  * <p>
  * In addition, instances of {@link javax.tools.JavaCompiler.CompilationTask}
  * obtained from {@linkplain javax.tools.JavaCompiler JavaCompiler} can be
- * downcast to {@link com.sun.source.util.JavacTask JavacTask} for access to
+ * downcast to {@link com.lan.source.util.JavacTask JavacTask} for access to
  * lower level aspects of <em>javac</em>, such as the
- * {@link com.sun.source.tree Abstract Syntax Tree} (AST).</p>
+ * {@link com.lan.source.tree Abstract Syntax Tree} (AST).</p>
  *
  * <p>This module uses the {@link java.nio.file.spi.FileSystemProvider
  * FileSystemProvider} API to locate file system providers. In particular,
@@ -58,78 +58,74 @@
  * @toolGuide javac
  *
  * @provides java.util.spi.ToolProvider
- * @provides com.sun.tools.javac.platform.PlatformProvider
+ * @provides com.lan.tools.javac.platform.PlatformProvider
  * @provides javax.tools.JavaCompiler
  * @provides javax.tools.Tool
  *
  * @uses javax.annotation.processing.Processor
- * @uses com.sun.source.util.Plugin
- * @uses com.sun.tools.javac.platform.PlatformProvider
+ * @uses com.lan.source.util.Plugin
+ * @uses com.lan.tools.javac.platform.PlatformProvider
  *
  * @moduleGraph
  * @since 9
  */
-module jdk.compiler {
-    requires transitive java.compiler;
-
-    exports com.sun.source.doctree;
-    exports com.sun.source.tree;
-    exports com.sun.source.util;
-    exports com.sun.tools.javac;
-
-    exports com.sun.tools.doclint to
+module jdk.compiler.lan {
+    requires java.compiler;
+    requires java.base;
+/*
+    exports com.lan.tools.doclint to
         jdk.javadoc;
-    exports com.sun.tools.javac.api to
+    exports com.lan.tools.javac.api to
         jdk.javadoc,
         jdk.jshell;
-    exports com.sun.tools.javac.resources to
+    exports com.lan.tools.javac.resources to
         jdk.jshell;
-    exports com.sun.tools.javac.code to
+    exports com.lan.tools.javac.code to
         jdk.javadoc,
         jdk.jshell;
-    exports com.sun.tools.javac.comp to
+    exports com.lan.tools.javac.comp to
         jdk.javadoc,
         jdk.jshell;
-    exports com.sun.tools.javac.file to
+    exports com.lan.tools.javac.file to
         jdk.jdeps,
         jdk.javadoc;
-    exports com.sun.tools.javac.jvm to
+    exports com.lan.tools.javac.jvm to
         jdk.javadoc;
-    exports com.sun.tools.javac.main to
+    exports com.lan.tools.javac.main to
         jdk.javadoc,
         jdk.jshell;
-    exports com.sun.tools.javac.model to
+    exports com.lan.tools.javac.model to
         jdk.javadoc;
-    exports com.sun.tools.javac.parser to
+    exports com.lan.tools.javac.parser to
         jdk.jshell;
-    exports com.sun.tools.javac.platform to
+    exports com.lan.tools.javac.platform to
         jdk.jdeps,
         jdk.javadoc;
-    exports com.sun.tools.javac.tree to
+    exports com.lan.tools.javac.tree to
         jdk.javadoc,
         jdk.jshell;
-    exports com.sun.tools.javac.util to
+    exports com.lan.tools.javac.util to
         jdk.jdeps,
         jdk.javadoc,
         jdk.jshell;
-    exports jdk.internal.shellsupport.doc to
+    exports lan.internal.shellsupport.doc to
         jdk.jshell,
         jdk.scripting.nashorn.shell;
-
-    uses javax.annotation.processing.Processor;
-    uses com.sun.source.util.Plugin;
-    uses com.sun.tools.javac.platform.PlatformProvider;
+*/
+    /*uses javax.annotation.processing.Processor;
+    uses com.lan.source.util.Plugin;
+    uses com.lan.tools.javac.platform.PlatformProvider;
 
     provides java.util.spi.ToolProvider with
-        com.sun.tools.javac.main.JavacToolProvider;
+        com.lan.tools.javac.main.JavacToolProvider;
 
-    provides com.sun.tools.javac.platform.PlatformProvider with
-        com.sun.tools.javac.platform.JDKPlatformProvider;
+    provides com.lan.tools.javac.platform.PlatformProvider with
+        com.lan.tools.javac.platform.JDKPlatformProvider;
 
     provides javax.tools.JavaCompiler with
-        com.sun.tools.javac.api.JavacTool;
+        com.lan.tools.javac.api.JavacTool;
 
     provides javax.tools.Tool with
-        com.sun.tools.javac.api.JavacTool;
+        com.lan.tools.javac.api.JavacTool;*/
 }
 
