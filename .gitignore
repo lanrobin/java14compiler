@@ -11,5 +11,6 @@ junit*.properties
 IgnoreLexer.java~
 .gradle
 .DS_Store
+*.class
 
 /verification
