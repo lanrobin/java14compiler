@@ -12,5 +12,5 @@ IgnoreLexer.java~
 .gradle
 .DS_Store
 *.class
-
+target/
 /verification
