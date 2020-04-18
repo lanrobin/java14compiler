@@ -931,6 +931,7 @@ public class JavaCompiler {
                 modules.addExtraAddModules(moduleName);
             }
 
+            /* 这里是原来的逻辑，为了能更方便调试，我把它拆分成几个调用。
             // These method calls must be chained to avoid memory leaks
             processAnnotations(
                 enterTrees(
@@ -939,8 +940,36 @@ public class JavaCompiler {
                 ),
                 classnames
             );
+             */
+            if (verbose) {
+                log.printVerbose("compile","parsing started.");
+            }
+            var ast = parseFiles(sourceFileObjects);
+            var checkedAst = stopIfError(CompileState.PARSE, ast);
 
-            // If it's safe to do so, skip attr / flow / gen for implicit classes
+            if (verbose) {
+                log.printVerbose("compile","parsing finished.");
+                log.printVerbose("compile","module started.");
+            }
+            var moduledAst = initModules(checkedAst);
+            var checkedModuledAst = stopIfError(CompileState.PARSE, moduledAst);
+
+            if (verbose) {
+                log.printVerbose("compile","module finished.");
+                log.printVerbose("compile","enter started.");
+            }
+            var enteredASt = enterTrees(checkedModuledAst);
+
+            if (verbose) {
+                log.printVerbose("compile","enter finished.");
+                log.printVerbose("compile","annotate started.");
+            }
+            processAnnotations(enteredASt, classnames);
+
+            if (verbose) {
+                log.printVerbose("compile","processAnnotations finished.");
+            }
+                    // If it's safe to do so, skip attr / flow / gen for implicit classes
             if (taskListener.isEmpty() &&
                     implicitSourcePolicy == ImplicitSourcePolicy.NONE) {
                 todo.retainFiles(inputFiles);
@@ -968,8 +997,14 @@ public class JavaCompiler {
                 break;
 
             case BY_TODO:
-                while (!todo.isEmpty())
-                    generate(desugar(flow(attribute(todo.remove()))));
+                while (!todo.isEmpty()) {
+                    var env = todo.remove();
+                    var attrEnv = attribute(env);
+                    var flowedEnv = flow(attrEnv);
+                    var desugaredEnv = desugar(flowedEnv);
+                    generate(desugaredEnv);
+                    //generate(desugar(flow(attribute(todo.remove()))));
+                }
                 break;
 
             default:

@@ -168,7 +168,7 @@ public class Context {
      */
     private final Map<Key<?>,Factory<?>> ft = new HashMap<>();
 
-    /*
+    /**
      * The key table, providing a unique Key<T> for each Class<T>.
      */
     private final Map<Class<?>, Key<?>> kt = new HashMap<>();

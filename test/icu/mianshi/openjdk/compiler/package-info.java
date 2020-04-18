@@ -1,6 +1,7 @@
 /**
 * This package is test for kinds of java language features.
 */
+@ReleaseTo(customer = "https://www.mianshi.icu")
 package icu.mianshi.openjdk.compiler;
 
 class PackageSharedClass {

@@ -2,7 +2,10 @@ package icu.mianshi.openjdk.compiler;
 
 import java.util.Arrays;
 import java.util.List;
-
+import java.util.Date;
+/**
+ * This is a complex java file.
+ */
 public class Enclosings {
     public Object c = null;
     public Enclosings() {
@@ -65,3 +68,22 @@ public class Enclosings {
         return Arrays.asList(canonicalName, packageName, enclosingClass, enclosingConstructor, enclosingMethod);
     }
 }
+
+@interface EnclosingTo {
+    String targetPackage();
+}
+
+interface Enclosible {
+    void enclose(Enclosible e);
+}
+
+abstract class BaseEnclosingClass implements Enclosible{}
+
+@EnclosingTo(targetPackage="icu.mianshi.openjdk.main")
+class DerivedEnclosingClass extends BaseEnclosingClass {
+    public void enclose(Enclosible e) {
+        System.out.println("I am DerivedEnclosingClass implemented enclose method.");
+    }
+}
+
+record EnclosingRecord(String name, float age, Date date){}

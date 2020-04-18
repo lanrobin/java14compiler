@@ -112,7 +112,7 @@ module jdk.compiler.lan {
         jdk.jshell,
         jdk.scripting.nashorn.shell;
 */
-    /*uses javax.annotation.processing.Processor;
+    /*uses javax.annotation.processing.Processor; */
     uses com.lan.source.util.Plugin;
     uses com.lan.tools.javac.platform.PlatformProvider;
 
@@ -126,9 +126,7 @@ module jdk.compiler.lan {
         com.lan.tools.javac.api.JavacTool;
 
     provides javax.tools.Tool with
-        com.lan.tools.javac.api.JavacTool;*/
+        com.lan.tools.javac.api.JavacTool;
     uses javax.annotation.processing.Processor;
-    uses com.lan.source.util.Plugin;
-    uses com.lan.tools.javac.platform.PlatformProvider;
 }
 
