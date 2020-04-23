@@ -6,22 +6,33 @@ import java.util.Date;
 /**
  * This is a complex java file.
  */
-public class Enclosings {
+public class Enclosings extends AbstractEnclosings implements Runnable{
     public Object c = null;
+
+    public Object classAObject() {
+        int index = 10;
+        printInt(index);
+        for(int i = 0; i < index; i++) {
+            index += i;
+        }
+        class ClassInMethod1{};
+        return new ClassInMethod1();
+    }
     public Enclosings() {
         class ClassInConstructor {};
         c = new ClassInConstructor();
     }
 
-    public Object classAObject() {
-        class ClassInMethod1{};
-        return new ClassInMethod1();
-    }
+
 
     public Runnable classWithAnonymousClass() {
         return new Runnable() {
             public void run() {}
         };
+    }
+
+    private static void printInt(int i) {
+        System.out.println("print:" + i);
     }
 
     public Object innerClassAObject() {
